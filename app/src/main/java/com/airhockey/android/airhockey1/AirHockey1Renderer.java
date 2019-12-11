@@ -14,10 +14,10 @@ import android.util.Log;
 
 import com.airhockey.android.R;
 import com.airhockey.android.model.GLProgramInfo;
-import com.airhockey.android.util.FeatureConfig;
-import com.airhockey.android.util.LoggerConfig;
-import com.airhockey.android.util.ShaderHelper;
-import com.airhockey.android.util.TextResourceReader;
+import com.airhockey.android.common.util.FeatureConfig;
+import com.airhockey.android.common.util.LoggerConfig;
+import com.airhockey.android.common.util.ShaderHelper;
+import com.airhockey.android.common.util.TextResourceReader;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;

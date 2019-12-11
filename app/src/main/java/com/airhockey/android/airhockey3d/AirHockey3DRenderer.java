@@ -12,10 +12,10 @@ import android.content.Context;
 import android.opengl.GLSurfaceView.Renderer;
 
 import com.airhockey.android.R;
-import com.airhockey.android.util.LoggerConfig;
-import com.airhockey.android.util.MatrixHelper;
-import com.airhockey.android.util.ShaderHelper;
-import com.airhockey.android.util.TextResourceReader;
+import com.airhockey.android.common.util.LoggerConfig;
+import com.airhockey.android.common.util.MatrixHelper;
+import com.airhockey.android.common.util.ShaderHelper;
+import com.airhockey.android.common.util.TextResourceReader;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -104,9 +104,9 @@ public class AirHockey3DRenderer implements Renderer {
         glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
         String vertexShaderSource = TextResourceReader
-                .readTextFileFromResource(context, R.raw.matrix_vertex_shader_es2);
+                .readTextFileFromResource(context, R.raw.matrix_vertex_shader);
         String fragmentShaderSource = TextResourceReader
-                .readTextFileFromResource(context, R.raw.simple_fragment_shader_es2);
+                .readTextFileFromResource(context, R.raw.simple_fragment_shader);
 
         int vertexShader = ShaderHelper.compileVertexShader(vertexShaderSource);
         int fragmentShader = ShaderHelper

@@ -15,6 +15,7 @@ import com.airhockey.android.airhockey1.AirHockey1Activity;
 import com.airhockey.android.airhockey2.AirHockey2Activity;
 import com.airhockey.android.airhockey3d.AirHockey3DActivity;
 import com.airhockey.android.ortho.AirHockeyOrthoActivity;
+import com.airhockey.android.texture.AirHockeyTextureActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,7 @@ class MainRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         data.add(new Pair<>(R.string.air_hockey_2, AirHockey2Activity.class));
         data.add(new Pair<>(R.string.air_hockey_ortho, AirHockeyOrthoActivity.class));
         data.add(new Pair<>(R.string.air_hockey_3d, AirHockey3DActivity.class));
+        data.add(new Pair<>(R.string.air_hockey_texured, AirHockeyTextureActivity.class));
     }
 
     @NonNull

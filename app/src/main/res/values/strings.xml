@@ -12,4 +12,5 @@
     <string name="air_hockey_2">Air hockey 2</string>
     <string name="air_hockey_ortho">Air hockey ortho</string>
     <string name="air_hockey_3d">Air hockey 3D</string>
+    <string name="air_hockey_texured">Air hockey textured</string>
 </resources>
