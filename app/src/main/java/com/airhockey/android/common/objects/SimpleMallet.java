@@ -9,13 +9,13 @@
 package com.airhockey.android.common.objects;
 
 import com.airhockey.android.common.data.VertexArray;
-import com.airhockey.android.common.programs.ColorShaderProgram1;
+import com.airhockey.android.common.programs.AColorShaderProgram;
 
 import static android.opengl.GLES20.GL_POINTS;
 import static android.opengl.GLES20.glDrawArrays;
 import static com.airhockey.android.common.util.Constants.BYTES_PER_FLOAT;
 
-public class Mallet1 {
+public class SimpleMallet {
     private static final int POSITION_COMPONENT_COUNT = 2;
     private static final int COLOR_COMPONENT_COUNT = 3;
     private static final int STRIDE =
@@ -27,11 +27,11 @@ public class Mallet1 {
             0f, 0.4f, 1f, 0f, 0f};
     private final VertexArray vertexArray;
 
-    public Mallet1() {
+    public SimpleMallet() {
         vertexArray = new VertexArray(VERTEX_DATA);
     }
 
-    public void bindData(ColorShaderProgram1 colorProgram) {
+    public void bindData(AColorShaderProgram colorProgram) {
         vertexArray.setVertexAttribPointer(
                 0,
                 colorProgram.getPositionAttributeLocation(),

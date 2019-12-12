@@ -10,7 +10,7 @@ package com.airhockey.android.common.objects;
 
 import com.airhockey.android.common.data.VertexArray;
 import com.airhockey.android.common.objects.ObjectBuilder.DrawCommand;
-import com.airhockey.android.common.programs.ColorShaderProgram;
+import com.airhockey.android.common.programs.UColorShaderProgram;
 import com.airhockey.android.common.util.Geometry.Cylinder;
 import com.airhockey.android.common.util.Geometry.Point;
 
@@ -34,7 +34,7 @@ public class Puck {
         drawList = generatedData.drawList;
     }
 
-    public void bindData(ColorShaderProgram colorProgram) {
+    public void bindData(UColorShaderProgram colorProgram) {
         vertexArray.setVertexAttribPointer(0,
                 colorProgram.getPositionAttributeLocation(),
                 POSITION_COMPONENT_COUNT

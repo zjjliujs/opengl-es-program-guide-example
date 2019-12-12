@@ -15,7 +15,7 @@ import com.airhockey.android.R;
 import com.airhockey.android.common.objects.Mallet;
 import com.airhockey.android.common.objects.Puck;
 import com.airhockey.android.common.objects.Table;
-import com.airhockey.android.common.programs.ColorShaderProgram;
+import com.airhockey.android.common.programs.UColorShaderProgram;
 import com.airhockey.android.common.programs.TextureShaderProgram;
 import com.airhockey.android.common.util.MatrixHelper;
 import com.airhockey.android.common.util.TextureHelper;
@@ -48,7 +48,7 @@ public class HockeyImMalletRenderer implements Renderer {
     private Puck puck;
 
     private TextureShaderProgram textureProgram;
-    private ColorShaderProgram colorProgram;
+    private UColorShaderProgram colorProgram;
 
     private int texture;
     private double theta = 0;
@@ -70,7 +70,7 @@ public class HockeyImMalletRenderer implements Renderer {
         puck = new Puck(0.06f, 0.02f, 32);
 
         textureProgram = new TextureShaderProgram(context);
-        colorProgram = new ColorShaderProgram(context);
+        colorProgram = new UColorShaderProgram(context);
 
         texture = TextureHelper.loadTexture(context, R.drawable.air_hockey_surface);
     }

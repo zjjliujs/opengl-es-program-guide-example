@@ -17,7 +17,7 @@ import static android.opengl.GLES20.glGetUniformLocation;
 import static android.opengl.GLES20.glUniform4f;
 import static android.opengl.GLES20.glUniformMatrix4fv;
 
-public class ColorShaderProgram extends ShaderProgram {
+public class UColorShaderProgram extends ShaderProgram {
     private static final String U_COLOR = "u_Color";
     // Uniform locations
     private final int uMatrixLocation;
@@ -26,7 +26,7 @@ public class ColorShaderProgram extends ShaderProgram {
     // Attribute locations
     private final int aPositionLocation;
 
-    public ColorShaderProgram(Context context) {
+    public UColorShaderProgram(Context context) {
         super(context, R.raw.color_vertex_shader, R.raw.color_fragment_shader);
 
         // Retrieve uniform locations for the shader program.
