@@ -10,28 +10,23 @@ package com.airhockey.android.common.objects;
 
 import com.airhockey.android.common.data.VertexArray;
 import com.airhockey.android.common.objects.ObjectBuilder.DrawCommand;
-import com.airhockey.android.common.objects.ObjectBuilder.GeneratedData;
 import com.airhockey.android.common.programs.ColorShaderProgram;
+import com.airhockey.android.common.util.Geometry.Cylinder;
 import com.airhockey.android.common.util.Geometry.Point;
 
 import java.util.List;
 
-public class Mallet {
+public class Puck {
     private static final int POSITION_COMPONENT_COUNT = 3;
 
-    public final float radius;
-    public final float height;
+    public final float radius, height;
 
     private final VertexArray vertexArray;
-    private final List<DrawCommand> drawList;
+    private final List<ObjectBuilder.DrawCommand> drawList;
 
-    public Mallet(float radius, float height, int numPointsAroundMallet) {
-        GeneratedData generatedData = ObjectBuilder.createMallet(
-                new Point(0f, 0f, 0f)
-                , radius
-                , height
-                , numPointsAroundMallet);
-
+    public Puck(float radius, float height, int numPointsAroundPuck) {
+        ObjectBuilder.GeneratedData generatedData = ObjectBuilder.createPuck(new Cylinder(
+                new Point(0f, 0f, 0f), radius, height), numPointsAroundPuck);
         this.radius = radius;
         this.height = height;
 
@@ -42,7 +37,8 @@ public class Mallet {
     public void bindData(ColorShaderProgram colorProgram) {
         vertexArray.setVertexAttribPointer(0,
                 colorProgram.getPositionAttributeLocation(),
-                POSITION_COMPONENT_COUNT, 0);
+                POSITION_COMPONENT_COUNT
+                , 0);
     }
 
     public void draw() {

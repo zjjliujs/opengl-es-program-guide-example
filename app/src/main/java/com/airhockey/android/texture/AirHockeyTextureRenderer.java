@@ -12,9 +12,9 @@ import android.content.Context;
 import android.opengl.GLSurfaceView.Renderer;
 
 import com.airhockey.android.R;
-import com.airhockey.android.common.objects.Mallet;
+import com.airhockey.android.common.objects.Mallet1;
 import com.airhockey.android.common.objects.Table;
-import com.airhockey.android.common.programs.ColorShaderProgram;
+import com.airhockey.android.common.programs.ColorShaderProgram1;
 import com.airhockey.android.common.programs.TextureShaderProgram;
 import com.airhockey.android.common.util.MatrixHelper;
 import com.airhockey.android.common.util.TextureHelper;
@@ -39,10 +39,10 @@ public class AirHockeyTextureRenderer implements Renderer {
     private final float[] projectModelMatrix = new float[16];
 
     private Table table;
-    private Mallet mallet;
+    private Mallet1 mallet;
 
     private TextureShaderProgram textureProgram;
-    private ColorShaderProgram colorProgram;
+    private ColorShaderProgram1 colorProgram;
 
     private int texture;
 
@@ -55,10 +55,10 @@ public class AirHockeyTextureRenderer implements Renderer {
         glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
         table = new Table();
-        mallet = new Mallet();
+        mallet = new Mallet1();
 
         textureProgram = new TextureShaderProgram(context);
-        colorProgram = new ColorShaderProgram(context);
+        colorProgram = new ColorShaderProgram1(context);
 
         texture = TextureHelper.loadTexture(context, R.drawable.air_hockey_surface);
     }
