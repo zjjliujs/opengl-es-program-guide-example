@@ -46,6 +46,10 @@
             android:name=".immallete.HockeyImMalletActivity"
             android:theme="@style/Theme.AppCompat" />
 
+        <activity
+            android:name=".touch.AirHockeyTouchActivity"
+            android:theme="@style/Theme.AppCompat" />
+
     </application>
 
 </manifest>
