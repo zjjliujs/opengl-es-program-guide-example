@@ -19,4 +19,5 @@
     <string name="particles">Particles</string>
     <string name="height_map">Height map</string>
     <string name="sky_box">Sky Box Particls</string>
+    <string name="light_map">Lighting Height Map</string>
 </resources>

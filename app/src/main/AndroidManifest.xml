@@ -66,6 +66,10 @@
             android:name=".heightmap.ParticlesHeightMapActivity"
             android:theme="@style/Theme.AppCompat" />
 
+        <activity
+            android:name=".lighting.LightingParticlesActivity"
+            android:theme="@style/Theme.AppCompat" />
+
     </application>
 
 </manifest>

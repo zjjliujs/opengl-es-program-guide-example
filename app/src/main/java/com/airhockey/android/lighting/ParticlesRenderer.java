@@ -6,7 +6,7 @@
  * We make no guarantees that this code is fit for any purpose. 
  * Visit http://www.pragmaticprogrammer.com/titles/kbogla for more book information.
  ***/
-package com.airhockey.android.heightmap;
+package com.airhockey.android.lighting;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
@@ -14,11 +14,11 @@ import android.graphics.Color;
 import android.opengl.GLSurfaceView.Renderer;
 
 import com.airhockey.android.R;
-import com.airhockey.android.common.objects.Heightmap;
+import com.airhockey.android.common.objects.LightingMap;
 import com.airhockey.android.common.objects.ParticleShooter;
 import com.airhockey.android.common.objects.ParticleSystem;
 import com.airhockey.android.common.objects.Skybox;
-import com.airhockey.android.common.programs.HeightMapShaderProgram;
+import com.airhockey.android.common.programs.LightingShaderProgram;
 import com.airhockey.android.common.programs.ParticleShaderProgram;
 import com.airhockey.android.common.programs.SkyboxShaderProgram;
 import com.airhockey.android.common.util.Geometry.Point;
@@ -45,25 +45,42 @@ import static android.opengl.GLES20.glDepthMask;
 import static android.opengl.GLES20.glDisable;
 import static android.opengl.GLES20.glEnable;
 import static android.opengl.GLES20.glViewport;
+import static android.opengl.Matrix.invertM;
 import static android.opengl.Matrix.multiplyMM;
+import static android.opengl.Matrix.multiplyMV;
 import static android.opengl.Matrix.rotateM;
 import static android.opengl.Matrix.scaleM;
 import static android.opengl.Matrix.setIdentityM;
 import static android.opengl.Matrix.translateM;
+import static android.opengl.Matrix.transposeM;
 
-public class ParticlesHeightMapRenderer implements Renderer {
+public class ParticlesRenderer implements Renderer {
+    /*
+    private final Vector vectorToLight = new Vector(0.61f, 0.64f, -0.47f).normalize();
+    */
+    /*
+    private final Vector vectorToLight = new Vector(0.30f, 0.35f, -0.89f).normalize();
+    */
+    final float[] vectorToLight = {0.30f, 0.35f, -0.89f, 0f};
     private final Context context;
-
     private final float[] modelMatrix = new float[16];
     private final float[] viewMatrix = new float[16];
     private final float[] viewMatrixForSkybox = new float[16];
     private final float[] projectionMatrix = new float[16];
-
     private final float[] tempMatrix = new float[16];
+    private final float[] modelViewMatrix = new float[16];
+    private final float[] it_modelViewMatrix = new float[16];
     private final float[] modelViewProjectionMatrix = new float[16];
-    private HeightMapShaderProgram heightmapProgram;
-    private Heightmap heightmap;
-
+    private final float[] pointLightPositions = new float[]
+            {-1f, 1f, 0f, 1f,
+                    0f, 1f, 0f, 1f,
+                    1f, 1f, 0f, 1f};
+    private final float[] pointLightColors = new float[]
+            {1.00f, 0.20f, 0.02f,
+                    0.02f, 0.25f, 0.02f,
+                    0.02f, 0.20f, 1.00f};
+    private LightingShaderProgram lightingShaderProgram;
+    private LightingMap lightingMap;
     private SkyboxShaderProgram skyboxProgram;
     private Skybox skybox;
 
@@ -79,7 +96,7 @@ public class ParticlesHeightMapRenderer implements Renderer {
 
     private float xRotation, yRotation;
 
-    public ParticlesHeightMapRenderer(Context context) {
+    public ParticlesRenderer(Context context) {
         this.context = context;
     }
 
@@ -106,6 +123,13 @@ public class ParticlesHeightMapRenderer implements Renderer {
         // We want the translation to apply to the regular view matrix, and not
         // the skybox.
         translateM(viewMatrix, 0, 0, -1.5f, -5f);
+
+//        // This helps us figure out the vector for the sun or the moon.        
+//        final float[] tempVec = {0f, 0f, -1f, 1f};
+//        final float[] tempVec2 = new float[4];
+//        
+//        Matrix.multiplyMV(tempVec2, 0, viewMatrixForSkybox, 0, tempVec, 0);
+//        Log.v("Testing", Arrays.toString(tempVec2));
     }
 
     @Override
@@ -114,8 +138,8 @@ public class ParticlesHeightMapRenderer implements Renderer {
         glEnable(GL_DEPTH_TEST);
         glEnable(GL_CULL_FACE);
 
-        heightmapProgram = new HeightMapShaderProgram(context);
-        heightmap = new Heightmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.heightmap));
+        lightingShaderProgram = new LightingShaderProgram(context);
+        lightingMap = new LightingMap(BitmapFactory.decodeResource(context.getResources(), R.drawable.heightmap));
 
         skyboxProgram = new SkyboxShaderProgram(context);
         skybox = new Skybox();
@@ -151,20 +175,22 @@ public class ParticlesHeightMapRenderer implements Renderer {
 
         particleTexture = TextureHelper.loadTexture(context, R.drawable.particle_texture);
 
+//        skyboxTexture = TextureHelper.loadCubeMap(context, 
+//            new int[] { R.drawable.left, R.drawable.right,
+//                        R.drawable.bottom, R.drawable.top, 
+//                        R.drawable.front, R.drawable.back}); 
         skyboxTexture = TextureHelper.loadCubeMap(context,
-                new int[]{R.drawable.left, R.drawable.right,
-                        R.drawable.bottom, R.drawable.top,
-                        R.drawable.front, R.drawable.back});
+                new int[]{R.drawable.night_left, R.drawable.night_right,
+                        R.drawable.night_bottom, R.drawable.night_top,
+                        R.drawable.night_front, R.drawable.night_back});
     }
 
     @Override
     public void onSurfaceChanged(GL10 glUnused, int width, int height) {
         glViewport(0, 0, width, height);
-        MatrixHelper.perspectiveM(projectionMatrix
-                , 45
-                , (float) width / (float) height
-                , 1f
-                , 100f);
+
+        MatrixHelper.perspectiveM(projectionMatrix, 45, (float) width
+                / (float) height, 1f, 100f);
         updateViewMatrices();
     }
 
@@ -179,15 +205,30 @@ public class ParticlesHeightMapRenderer implements Renderer {
 
     private void drawHeightmap() {
         setIdentityM(modelMatrix, 0);
-        // Expand the heightmap's dimensions, but don't expand the height as
-        // much so that we don't get insanely tall mountains.
+
+        // Expand the lightingMap's dimensions, but don't expand the height as
+        // much so that we don't get insanely tall mountains.        
         scaleM(modelMatrix, 0, 100f, 10f, 100f);
-        //scaleM(modelMatrix, 0, 20f, 2f, 20f);
         updateMvpMatrix();
-        heightmapProgram.useProgram();
-        heightmapProgram.setUniforms(modelViewProjectionMatrix);
-        heightmap.bindData(heightmapProgram);
-        heightmap.draw();
+
+        lightingShaderProgram.useProgram();
+        /*
+        lightingShaderProgram.setUniforms(modelViewProjectionMatrix, vectorToLight);
+         */
+
+        // Put the light positions into eye space.        
+        final float[] vectorToLightInEyeSpace = new float[4];
+        final float[] pointPositionsInEyeSpace = new float[12];
+        multiplyMV(vectorToLightInEyeSpace, 0, viewMatrix, 0, vectorToLight, 0);
+        multiplyMV(pointPositionsInEyeSpace, 0, viewMatrix, 0, pointLightPositions, 0);
+        multiplyMV(pointPositionsInEyeSpace, 4, viewMatrix, 0, pointLightPositions, 4);
+        multiplyMV(pointPositionsInEyeSpace, 8, viewMatrix, 0, pointLightPositions, 8);
+
+        lightingShaderProgram.setUniforms(modelViewMatrix, it_modelViewMatrix,
+                modelViewProjectionMatrix, vectorToLightInEyeSpace,
+                pointPositionsInEyeSpace, pointLightColors);
+        lightingMap.bindData(lightingShaderProgram);
+        lightingMap.draw();
     }
 
     private void drawSkybox() {
@@ -224,10 +265,22 @@ public class ParticlesHeightMapRenderer implements Renderer {
         glDisable(GL_BLEND);
         glDepthMask(true);
     }
+    
+    /*
+    private void updateMvpMatrix() {
+        multiplyMM(tempMatrix, 0, viewMatrix, 0, modelMatrix, 0);        
+        multiplyMM(modelViewProjectionMatrix, 0, projectionMatrix, 0, tempMatrix, 0);
+    }
+    */
 
     private void updateMvpMatrix() {
-        multiplyMM(tempMatrix, 0, viewMatrix, 0, modelMatrix, 0);
-        multiplyMM(modelViewProjectionMatrix, 0, projectionMatrix, 0, tempMatrix, 0);
+        multiplyMM(modelViewMatrix, 0, viewMatrix, 0, modelMatrix, 0);
+        invertM(tempMatrix, 0, modelViewMatrix, 0);
+        transposeM(it_modelViewMatrix, 0, tempMatrix, 0);
+        multiplyMM(
+                modelViewProjectionMatrix, 0,
+                projectionMatrix, 0,
+                modelViewMatrix, 0);
     }
 
     private void updateMvpMatrixForSkybox() {

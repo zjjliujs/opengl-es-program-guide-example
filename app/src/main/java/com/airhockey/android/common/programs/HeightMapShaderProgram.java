@@ -16,11 +16,11 @@ import static android.opengl.GLES20.glGetAttribLocation;
 import static android.opengl.GLES20.glGetUniformLocation;
 import static android.opengl.GLES20.glUniformMatrix4fv;
 
-public class HeightmapShaderProgram extends ShaderProgram {
+public class HeightMapShaderProgram extends ShaderProgram {
     private final int uMatrixLocation;
     private final int aPositionLocation;
 
-    public HeightmapShaderProgram(Context context) {
+    public HeightMapShaderProgram(Context context) {
         super(context, R.raw.heightmap_vertex_shader, R.raw.heightmap_fragment_shader);
 
         uMatrixLocation = glGetUniformLocation(program, U_MATRIX);

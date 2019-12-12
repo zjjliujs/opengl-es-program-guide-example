@@ -17,6 +17,7 @@ import com.airhockey.android.airhockey3d.AirHockey3DActivity;
 import com.airhockey.android.first.FirstOpenGLProjectActivity;
 import com.airhockey.android.heightmap.ParticlesHeightMapActivity;
 import com.airhockey.android.immallete.HockeyImMalletActivity;
+import com.airhockey.android.lighting.LightingParticlesActivity;
 import com.airhockey.android.ortho.AirHockeyOrthoActivity;
 import com.airhockey.android.particles.ParticlesActivity;
 import com.airhockey.android.skybox.ParticlesSkyBoxActivity;
@@ -48,6 +49,7 @@ class MainRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         data.add(new Pair<>(R.string.particles, ParticlesActivity.class));
         data.add(new Pair<>(R.string.sky_box, ParticlesSkyBoxActivity.class));
         data.add(new Pair<>(R.string.height_map, ParticlesHeightMapActivity.class));
+        data.add(new Pair<>(R.string.light_map, LightingParticlesActivity.class));
     }
 
     @NonNull
