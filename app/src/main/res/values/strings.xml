@@ -18,4 +18,5 @@
     <string name="first_app">First APP</string>
     <string name="particles">Particles</string>
     <string name="height_map">Height map</string>
+    <string name="sky_box">Sky Box Particls</string>
 </resources>

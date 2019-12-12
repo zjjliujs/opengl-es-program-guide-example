@@ -59,6 +59,10 @@
             android:theme="@style/Theme.AppCompat" />
 
         <activity
+            android:name=".skybox.ParticlesSkyBoxActivity"
+            android:theme="@style/Theme.AppCompat" />
+
+        <activity
             android:name=".heightmap.ParticlesHeightMapActivity"
             android:theme="@style/Theme.AppCompat" />
 
