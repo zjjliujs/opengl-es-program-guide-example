@@ -17,6 +17,7 @@ import com.airhockey.android.airhockey3d.AirHockey3DActivity;
 import com.airhockey.android.first.FirstOpenGLProjectActivity;
 import com.airhockey.android.immallete.HockeyImMalletActivity;
 import com.airhockey.android.ortho.AirHockeyOrthoActivity;
+import com.airhockey.android.particles.ParticlesActivity;
 import com.airhockey.android.texture.AirHockeyTextureActivity;
 import com.airhockey.android.touch.AirHockeyTouchActivity;
 
@@ -42,6 +43,7 @@ class MainRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         data.add(new Pair<>(R.string.air_hockey_texured, AirHockeyTextureActivity.class));
         data.add(new Pair<>(R.string.air_hockey_im_mallet, HockeyImMalletActivity.class));
         data.add(new Pair<>(R.string.air_hockey_touch, AirHockeyTouchActivity.class));
+        data.add(new Pair<>(R.string.particles, ParticlesActivity.class));
     }
 
     @NonNull

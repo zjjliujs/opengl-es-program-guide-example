@@ -54,6 +54,10 @@
             android:name=".touch.AirHockeyTouchActivity"
             android:theme="@style/Theme.AppCompat" />
 
+        <activity
+            android:name=".particles.ParticlesActivity"
+            android:theme="@style/Theme.AppCompat" />
+
     </application>
 
 </manifest>
