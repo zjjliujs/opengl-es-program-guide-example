@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.airhockey.android.airhockey1.AirHockey1Activity;
 import com.airhockey.android.airhockey2.AirHockey2Activity;
 import com.airhockey.android.airhockey3d.AirHockey3DActivity;
+import com.airhockey.android.first.FirstOpenGLProjectActivity;
 import com.airhockey.android.immallete.HockeyImMalletActivity;
 import com.airhockey.android.ortho.AirHockeyOrthoActivity;
 import com.airhockey.android.texture.AirHockeyTextureActivity;
@@ -33,6 +34,7 @@ class MainRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private void initData() {
         data = new ArrayList<>();
+        data.add(new Pair<>(R.string.first_app, FirstOpenGLProjectActivity.class));
         data.add(new Pair<>(R.string.air_hockey_1, AirHockey1Activity.class));
         data.add(new Pair<>(R.string.air_hockey_2, AirHockey2Activity.class));
         data.add(new Pair<>(R.string.air_hockey_ortho, AirHockeyOrthoActivity.class));

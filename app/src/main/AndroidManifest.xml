@@ -23,6 +23,10 @@
         </activity>
 
         <activity
+            android:name=".first.FirstOpenGLProjectActivity"
+            android:theme="@style/Theme.AppCompat" />
+
+        <activity
             android:name=".airhockey1.AirHockey1Activity"
             android:theme="@style/Theme.AppCompat" />
 
