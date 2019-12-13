@@ -23,52 +23,40 @@
         </activity>
 
         <activity
-            android:name=".first.FirstOpenGLProjectActivity"
-            android:theme="@style/Theme.AppCompat" />
+            android:name=".first.FirstOpenGLProjectActivity"/>
 
         <activity
-            android:name=".airhockey1.AirHockey1Activity"
-            android:theme="@style/Theme.AppCompat" />
+            android:name=".airhockey1.AirHockey1Activity"/>
 
         <activity
-            android:name=".airhockey2.AirHockey2Activity"
-            android:theme="@style/Theme.AppCompat" />
+            android:name=".airhockey2.AirHockey2Activity"/>
 
         <activity
-            android:name=".ortho.AirHockeyOrthoActivity"
-            android:theme="@style/Theme.AppCompat" />
+            android:name=".ortho.AirHockeyOrthoActivity"/>
 
         <activity
-            android:name=".airhockey3d.AirHockey3DActivity"
-            android:theme="@style/Theme.AppCompat" />
+            android:name=".airhockey3d.AirHockey3DActivity"/>
 
         <activity
-            android:name=".texture.AirHockeyTextureActivity"
-            android:theme="@style/Theme.AppCompat" />
+            android:name=".texture.AirHockeyTextureActivity"/>
 
         <activity
-            android:name=".immallete.HockeyImMalletActivity"
-            android:theme="@style/Theme.AppCompat" />
+            android:name=".immallete.HockeyImMalletActivity"/>
 
         <activity
-            android:name=".touch.AirHockeyTouchActivity"
-            android:theme="@style/Theme.AppCompat" />
+            android:name=".touch.AirHockeyTouchActivity"/>
 
         <activity
-            android:name=".particles.ParticlesActivity"
-            android:theme="@style/Theme.AppCompat" />
+            android:name=".particles.ParticlesActivity"/>
 
         <activity
-            android:name=".skybox.ParticlesSkyBoxActivity"
-            android:theme="@style/Theme.AppCompat" />
+            android:name=".skybox.ParticlesSkyBoxActivity"/>
 
         <activity
-            android:name=".heightmap.ParticlesHeightMapActivity"
-            android:theme="@style/Theme.AppCompat" />
+            android:name=".heightmap.ParticlesHeightMapActivity"/>
 
         <activity
-            android:name=".lighting.LightingParticlesActivity"
-            android:theme="@style/Theme.AppCompat" />
+            android:name=".lighting.LightingParticlesActivity"/>
 
     </application>
 
